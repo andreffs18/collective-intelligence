@@ -1,6 +1,6 @@
 # Custom Ignores
 *.ipynb
-Chapter 2 - Making Recomendations/.idea/*
+.idea/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
