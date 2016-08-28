@@ -1,0 +1,44 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0" is_locked="false">
+    <option name="myName" value="Project Default" />
+    <option name="myLocal" value="false" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="30">
+            <item index="0" class="java.lang.String" itemvalue="mailchimp-api-python" />
+            <item index="1" class="java.lang.String" itemvalue="mixpanel-python-async" />
+            <item index="2" class="java.lang.String" itemvalue="tip.tar.gz" />
+            <item index="3" class="java.lang.String" itemvalue="simplejson" />
+            <item index="4" class="java.lang.String" itemvalue="virtualenv" />
+            <item index="5" class="java.lang.String" itemvalue="billiard" />
+            <item index="6" class="java.lang.String" itemvalue="django-tastypie-swagger" />
+            <item index="7" class="java.lang.String" itemvalue="django-rq" />
+            <item index="8" class="java.lang.String" itemvalue="anyjson" />
+            <item index="9" class="java.lang.String" itemvalue="South" />
+            <item index="10" class="java.lang.String" itemvalue="LBForum" />
+            <item index="11" class="java.lang.String" itemvalue="pymongo" />
+            <item index="12" class="java.lang.String" itemvalue="requests" />
+            <item index="13" class="java.lang.String" itemvalue="kombu" />
+            <item index="14" class="java.lang.String" itemvalue="sqlparse" />
+            <item index="15" class="java.lang.String" itemvalue="django-sslify" />
+            <item index="16" class="java.lang.String" itemvalue="celery" />
+            <item index="17" class="java.lang.String" itemvalue="django-onlineuser" />
+            <item index="18" class="java.lang.String" itemvalue="lxml" />
+            <item index="19" class="java.lang.String" itemvalue="redis" />
+            <item index="20" class="java.lang.String" itemvalue="django-debug-toolbar-template-timings" />
+            <item index="21" class="java.lang.String" itemvalue="django-simple-avatar" />
+            <item index="22" class="java.lang.String" itemvalue="virtual-less" />
+            <item index="23" class="java.lang.String" itemvalue="django-pagination" />
+            <item index="24" class="java.lang.String" itemvalue="django-lb-attachments" />
+            <item index="25" class="java.lang.String" itemvalue="urbanairship" />
+            <item index="26" class="java.lang.String" itemvalue="amqp" />
+            <item index="27" class="java.lang.String" itemvalue="polib" />
+            <item index="28" class="java.lang.String" itemvalue="django-helper" />
+            <item index="29" class="java.lang.String" itemvalue="urllib3" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

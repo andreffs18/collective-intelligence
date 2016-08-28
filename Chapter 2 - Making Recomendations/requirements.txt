@@ -1,0 +1,11 @@
+Jinja2==2.8
+MarkupSafe==0.23
+backports.ssl-match-hostname==3.4.0.2
+certifi==2015.04.28
+functools32==3.2.3-2
+gnureadline==6.3.3
+ipython==3.2.1
+jsonschema==2.5.1
+pyzmq==14.7.0
+tornado==4.2.1
+wsgiref==0.1.2
