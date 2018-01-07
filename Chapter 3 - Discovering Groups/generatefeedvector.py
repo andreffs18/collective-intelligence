@@ -1,5 +1,6 @@
 import feedparser
 import re
+
 feedlist = [
     'http://feeds.feedburner.com/porfalarnoutracoisa',
     'http://www.marinamele.com/feed',
@@ -8,7 +9,7 @@ feedlist = [
     'http://feeds.gawker.com/lifehacker/full',
 ]
 
-def getwordcounts(url):
+def get_word_counts(url):
     # Parse the feed
     d = feedparser.parse(url)
     counter = {}
@@ -21,26 +22,26 @@ def getwordcounts(url):
             summary = e.description
 
         # Extract list of words
-        words = getwords(e.title + ' ' + summary)
+        words = get_words(e.title + ' ' + summary)
         for word in words:
             counter.setdefault(word, 0)
             counter[word] += 1
+
     return d.feed.title, counter
 
 
-def getwords(html):
+def get_words(html):
     # Remove all html tags
     txt = re.compile(r'<[^>]+>').sub('', html)
     # Split words by all non-alpha caracters
     words = re.compile(r'[^A-Z^a-z]+').split(txt)
-
     # Conver to lower case
     return [word.lower() for word in words if word != '']
 
 apcount = {}
 wordcounts = {}
 for feedurl in feedlist:
-    title, wc = getwordcounts(feedurl)
+    title, wc = get_word_counts(feedurl)
     wordcounts[title] = wc
     for word, count in wc.items():
         apcount.setdefault(word, 0)
