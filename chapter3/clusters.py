@@ -1,3 +1,4 @@
+import random
 from distances import pearson
 from PIL import Image, ImageDraw 
 
@@ -9,6 +10,14 @@ class bicluster:
         self.right = right
         self.distance = distance
         self.id = id
+
+
+def kcluster(rows, distance=pearson, k=4):
+    # Determine the minimum and maximum values for each point
+    ranges = [
+        (min(), max()) 
+        for i in range(len(rows[0]))
+    ]
 
 
 def hcluster(rows, distance=pearson):

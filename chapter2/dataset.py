@@ -1,5 +1,7 @@
 # !/usr/bin/python
 # -*- coding: utf-8 -*-
+# Datasets can be downloaded from https://old.datahub.io/dataset/imdb
+
 import os
 DATASET_PATH = os.getcwd() + '/dataset'
 
