@@ -1,3 +1,5 @@
+Another repo like this can be fond here https://github.com/ferronrsmith/programming-collective-intelligence-code
+
 # Overview of the Chapters
 Every algorithm in the book is motivated by a realistic problem that can, I hope, be easily understood by all readers. I have tried to avoid problems that require a great deal of domain knowledge, and I have focused on problems that, while complex, are easy for most people to relate to.
 
