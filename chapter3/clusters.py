@@ -15,9 +15,48 @@ class bicluster:
 def kcluster(rows, distance=pearson, k=4):
     # Determine the minimum and maximum values for each point
     ranges = [
-        (min(), max()) 
+        (min(map(lambda r: r[i], rows)), max(map(lambda r: r[i], rows))) 
         for i in range(len(rows[0]))
     ]
+
+    # Create K random placed centroids
+    clusters = [[
+        random.random() * (ranges[i][1] - ranges[i][0]) + ranges[i][0]
+        for i in range(len(rows[0]))
+    ] for _ in range(k)]
+
+    last_matches = None
+    for t in range(100):
+        print("Iteration {}".format(t))
+        best_matches = [[] for i in range(k)]
+
+        # Find which centroid is the closest for each row
+        for j in range(len(rows)):
+            row = rows[j]
+            best_match = 0
+            for i in range(k):
+                d = distance(clusters[i], row)
+                if d < distance(clusters[best_match], row):
+                    best_match = i
+            best_matches[best_match].append(j)
+
+        # If the results are the same as last time this is complete:
+        if best_matches == last_matches:
+            break
+        last_matches = best_matches
+
+    # Move the centroids to the average of their members
+    for i in range(k):
+        avgs = [0.0] * len(rows[0])
+        if len(best_matches[i]) > 0:
+            for row_id in best_matches[i]:
+                for m in range(len(rows[row_id])):
+                    avgs[m] += rows[row_id][m]
+            for j in range(len(avgs)):
+                avgs[j] /= len(best_matches[i])
+            clusters[i] = avgs
+
+    return best_matches
 
 
 def hcluster(rows, distance=pearson):
