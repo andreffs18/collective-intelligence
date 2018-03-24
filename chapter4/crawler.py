@@ -1,11 +1,13 @@
 from services.crawl_service import CrawlService
 from services.get_text_only_service import GetTextOnlyService
 from services.create_index_tables_service import CreateIndexTablesService
+from services.drop_tables_service import DropTablesService
 from services.separate_words_service import SeparateWordsService
 from services.add_to_index_service import AddToIndexService
 from services.get_entry_id_service import GetEntryIdService
 from services.is_indexed_service import IsIndexedService
-from pysqlite2 import dbapi2 as sqlite
+
+from sqlite3 import dbapi2 as sqlite
 
 
 class Crawler(object):
@@ -70,3 +72,10 @@ class Crawler(object):
         Create database tables
         """
         CreateIndexTablesService(self).call()
+
+    def drop_tables(self):
+        """
+        Drop database tables
+        """
+        DropTablesService(self).call()
+
