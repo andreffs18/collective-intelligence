@@ -1,5 +1,3 @@
-
-
 class GetEntryIdService(object):
 
     def __init__(self, crawler, table, field, value, create_new):

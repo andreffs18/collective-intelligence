@@ -1,5 +1,3 @@
-
-
 class GetMatchRowsService(object):
 
     def __init__(self, searcher, query):

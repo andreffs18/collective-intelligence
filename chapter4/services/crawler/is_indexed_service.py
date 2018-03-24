@@ -1,5 +1,3 @@
-
-
 class IsIndexedService(object):
 
     def __init__(self, crawler, url):

@@ -1,4 +1,4 @@
-from services.normalize_scores_service import NormalizeScoresService
+from services.searcher.normalize_scores_service import NormalizeScoresService
 
 
 class InboundLinkScoreService(object):

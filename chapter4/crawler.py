@@ -1,29 +1,31 @@
-from services.crawl_service import CrawlService
-from services.get_text_only_service import GetTextOnlyService
-from services.create_index_tables_service import CreateIndexTablesService
-from services.drop_tables_service import DropTablesService
-from services.separate_words_service import SeparateWordsService
-from services.add_to_index_service import AddToIndexService
-from services.get_entry_id_service import GetEntryIdService
-from services.is_indexed_service import IsIndexedService
+from services.crawler.crawl_service import CrawlService
+from services.crawler.get_text_only_service import GetTextOnlyService
+from services.crawler.create_index_tables_service import CreateIndexTablesService
+from services.crawler.drop_tables_service import DropTablesService
+from services.crawler.separate_words_service import SeparateWordsService
+from services.crawler.calculate_page_rank_service import CalculatePageRankService
+from services.crawler.add_link_to_reference_service import AddLinkReferenceService
+from services.crawler.add_to_index_service import AddToIndexService
+from services.crawler.get_entry_id_service import GetEntryIdService
+from services.crawler.is_indexed_service import IsIndexedService
 
 from sqlite3 import dbapi2 as sqlite
 
 
 class Crawler(object):
 
-    def __init__(self, dbname):
+    def __init__(self, dbname="searchindex.db"):
         """
         Initialize the Crawler with the name of the database
         """
         self.con = sqlite.connect(dbname)
-       
+
     def __del__(self):
         self.con.close()
-    
+
     def db_commit(self):
         self.con.commit()
-    
+
     def get_entry_id(self, table, field, value, create_new=True):
         """
         Auxilliary function for getting an entry id an adding it if its not present
@@ -58,7 +60,7 @@ class Crawler(object):
         """
         Add link between two pages
         """
-        pass
+        AddLinkReferenceService(self, url_from, url_to, link_text).call()
 
     def crawl(self, pages, depth=2):
         """
@@ -66,6 +68,12 @@ class Crawler(object):
         indexing pages as we go
         """
         CrawlService(self, pages, depth).call()
+
+    def calculate_page_rank(self, iterations=10):
+        """
+        Generate page rank scores for all available pages
+        """
+        CalculatePageRankService(self, iterations).call()
 
     def create_index_tables(self):
         """

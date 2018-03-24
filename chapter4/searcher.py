@@ -1,11 +1,15 @@
-from services.get_match_rows_service import GetMatchRowsService
-from services.get_scored_list_service import GetScoredListService
+from services.searcher.get_match_rows_service import GetMatchRowsService
+from services.searcher.get_scored_list_service import GetScoredListService
 from sqlite3 import dbapi2 as sqlite, OperationalError
+
+from nn import SearchNet
+
+import random
 
 
 class Searcher(object):
 
-    def __init__(self, dbname):
+    def __init__(self, dbname="searchindex.db"):
         """
         Initialize the Crawler with the name of the database
         """
@@ -50,4 +54,14 @@ class Searcher(object):
         ranked_scores = sorted([(score, url) for (url, score) in scores.items()], reverse=1)
         for (score, urlid) in ranked_scores[0: limit]:
             print("{}\t{}".format(score, self.get_url_name(urlid)))
-        return
+
+        return word_ids, [r[1] for r in ranked_scores]
+
+    def search(self, query, limit=10):
+        """
+        Aux method to run query and send the result to our neural network
+        """
+        word_ids, url_ids = self.query(query, limit)
+        selected_url = random.choice(url_ids)
+        print("User selected url \"{}\"".format(self.get_url_name(selected_url)))
+        return SearchNet().train_query(word_ids, url_ids, selected_url)

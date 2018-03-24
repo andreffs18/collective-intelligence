@@ -1,5 +1,3 @@
-
-
 class NormalizeScoresService(object):
 
     def __init__(self, scores, small=True):

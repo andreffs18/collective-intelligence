@@ -1,5 +1,6 @@
 import re
 
+
 class SeparateWordsService(object):
 
     def __init__(self,  text):

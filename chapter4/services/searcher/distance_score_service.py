@@ -1,7 +1,7 @@
-from services.normalize_scores_service import NormalizeScoresService
+from services.searcher.normalize_scores_service import NormalizeScoresService
 
 
-class PageRankScoreService(object):
+class DistanceScoreService(object):
 
     def __init__(self, rows):
         self.rows = rows

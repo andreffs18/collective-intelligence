@@ -1,5 +1,3 @@
-
-
 class CreateIndexTablesService(object):
 
     def __init__(self, crawler):
@@ -9,7 +7,7 @@ class CreateIndexTablesService(object):
         print("Start with creation of table...")
         self.crawler.con.execute('CREATE TABLE urllist(url)')
         self.crawler.con.execute('CREATE TABLE wordlist(word)')
-        self.crawler.con.execute('CREATE TABLE wordlocation(urllid, wordid, location)')
+        self.crawler.con.execute('CREATE TABLE wordlocation(urlid, wordid, location)')
         self.crawler.con.execute('CREATE TABLE link(fromid INTEGER, toid INTEGER)')
         self.crawler.con.execute('CREATE TABLE linkwords(wordid, linkid)')
 

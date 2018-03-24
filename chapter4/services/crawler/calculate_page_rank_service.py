@@ -1,5 +1,3 @@
-
-
 class CalculatePageRankService(object):
 
     def __init__(self, crawler, iterations=20):

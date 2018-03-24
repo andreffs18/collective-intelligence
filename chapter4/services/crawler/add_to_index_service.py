@@ -1,5 +1,7 @@
-from services.get_text_only_service import GetTextOnlyService
-from services.separate_words_service import SeparateWordsService
+from services.crawler.get_text_only_service import GetTextOnlyService
+from services.crawler.separate_words_service import SeparateWordsService
+from finders.common_finders import CommonFinders
+
 
 class AddToIndexService(object):
 
@@ -22,12 +24,9 @@ class AddToIndexService(object):
 
         # link each word to this url
         for i, word in enumerate(words):
-            if word in IGNORE_WORDS:
+            if word in CommonFinders.get_ignore_words():
                 continue
 
             word_id = self.crawler.get_entry_id('wordlist', 'word', word)
             self.crawler.con.execute("insert into wordlocation(urlid, wordid, location) "
                                      "values ({}, {}, {})".format(url_id, word_id, i))
-
-
-

@@ -1,5 +1,3 @@
-
-
 class DropTablesService(object):
 
     def __init__(self, crawler):
