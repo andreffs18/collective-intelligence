@@ -5,7 +5,7 @@ from .base_classifier_service import BaseClassifierService
 class FisherClassifierService(BaseClassifierService):
 
     def __init__(self, *args, **kwargs):
-        super(FisherClassifierService, self).__init__(self, *args, **kwargs)
+        super(FisherClassifierService, self).__init__(*args, **kwargs)
         self.minimums = {}
 
     def set_minimum(self, cat, min):

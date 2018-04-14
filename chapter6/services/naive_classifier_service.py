@@ -4,7 +4,7 @@ from .base_classifier_service import BaseClassifierService
 class NaiveClassifierService(BaseClassifierService):
 
     def __init__(self, *args, **kwargs):
-        super(NaiveClassifierService, self).__init__(self, *args, **kwargs)
+        super(NaiveClassifierService, self).__init__(*args, **kwargs)
         self.thresholds = {}
 
     def set_threshold(self, cat, t):

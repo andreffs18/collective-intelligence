@@ -1,55 +1,22 @@
+from .in_memory_classifier_service import InMemoryClassifierService
+from .persistent_classifier_service import PersistentClassifierService
+
+
 class BaseClassifierService(object):
 
-    def __init__(self, get_features, filename=None):
-        # Counts of feature/category combinations
-        self.fc = {}
-        # Counts of documents in each category
-        self.cc = {}
+    def __init__(self, get_features, persistent_storage=True, *args, **kwargs):
         self.get_features = get_features
-        self.filename = filename
+        self.persistent_storage = persistent_storage
 
-    def incf(self, f, cat):
-        """
-        Increment amount of times pair "feature/category" is used
-        """
-        self.fc.setdefault(f, {})
-        self.fc[f].setdefault(cat, 0)
-        self.fc[f][cat] += 1
+        if self.persistent_storage:
+            self.s = PersistentClassifierService(*args, **kwargs)
+        else:
+            self.s = InMemoryClassifierService(*args, **kwargs)
 
-    def incc(self, cat):
-        """
-        Increment the amount of times category "cat" is used
-        """
-        self.cc.setdefault(cat, 0)
-        self.cc[cat] += 1
-
-    def fcount(self, f, cat):
-        """
-        Return count for given feature/category pair
-        """
-        if f in self.fc and cat in self.fc[f]:
-            return float(self.fc[f][cat])
-        return .0
-
-    def ccount(self, cat):
-        """
-        Return count for given category
-        """
-        if cat in self.cc:
-            return float(self.cc[cat])
-        return .0
-
-    def total_count(self):
-        """
-        Return total amount of categories
-        """
-        return sum(self.cc.values())
-
-    def categories(self):
-        """
-        Return all categories
-        """
-        return self.cc.keys()
+        # inherit given methods
+        for func in dir(self.s):
+            if not func.startswith("__"):
+                setattr(self, func, getattr(self.s, func))
 
     def train(self, item, category):
         """
@@ -59,6 +26,9 @@ class BaseClassifierService(object):
         for feature in features:
             self.incf(feature, category)
         self.incc(category)
+
+        if self.persistent_storage:
+            self.con.commit()
 
     def fprob(self, f, cat):
         """
@@ -84,53 +54,4 @@ class BaseClassifierService(object):
         count = sum([self.fcount(f, c) for c in self.categories()])
 
         # Calculate the weighted average
-        print(weight, assumed_probability, count, basic_prob, weight, count)
         return ((weight * assumed_probability) + (count * basic_prob)) / (weight + count)
-
-#
-#def incf(self, f, cat):
-#    count = self.fcount(f, cat)
-#    if count == 0:
-#        self.con.execute("insert into fc values ('%s','%s',1)" % (f, cat))
-#    else:
-#        self.con.execute("update fc set count=%d where feature='%s' and category='%s'" % (count + 1, f, cat))
-#
-#def incc(self, cat):
-#    count = self.catcount(cat)
-#    if count == 0:
-#        self.con.execute("insert into cc values ('%s',1)" % (cat))
-#    else:
-#        self.con.execute("update cc set count=%d where category='%s'" % (count + 1, cat))
-#
-#
-#def fcount(self, f, cat):
-#    res = self.con.execute('select count from fc where feature="%s" and category="%s"' % (f, cat)).fetchone()
-#    if res == None:
-#        return 0
-#    else:
-#        return float(res[0])
-#
-#
-#def catcount(self, cat):
-#    res = self.con.execute('select count from cc where category="%s"' % (cat)).fetchone()
-#    if res == None:
-#        return 0
-#    else:
-#        return float(res[0])
-#
-#def categories(self):
-#    cur = self.con.execute('select category from cc');
-#    return [d[0] for d in cur]
-#
-#def totalcount(self):
-#    res = self.con.execute('select sum(count) from cc').fetchone();
-#    if res == None: return 0
-#    return res[0]
-#
-#
-
-#def setdb(self, dbfile):
-#    self.con = sqlite.connect(dbfile)
-#    self.con.execute('create table if not exists fc(feature,category,count)')
-#    self.con.execute('create table if not exists cc(category,count)')
-#
