@@ -1,5 +1,4 @@
 # Custom Ignores
-*.ipynb
 .idea/
 
 # Byte-compiled / optimized / DLL files
